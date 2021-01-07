@@ -21,7 +21,7 @@ app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024
 UPLOAD_DIR="tmp"
 
 # ------------------------------------------------------------------
-@app.route('/data/upload', methods=['POST'])
+@app.route('/upload', methods=['POST'])    #static/upload.htmlにアップロードしたtmpフォルダを保存
 def upload_multipart():
     sys.stderr.write("*** upload_multipart *** start ***\n")
     if 'uploadFile' not in request.files:
@@ -47,7 +47,7 @@ def handle_over_max_file_size(error):
     return 'result : file size is overed.'
 
 # ------------------------------------------------------------------
-@app.route('/zip')
+@app.route('/download')  #tmpフォルダをzip化
 def downloadFiles():
     with zipfile.ZipFile('send.zip','w') as myzip:
         for folder, subfolders, files in os.walk('tmp'):
